@@ -5,6 +5,7 @@ import userService from '../../services/user';
 import { IUser } from '../../schemaValidations/model.schema';
 import { Title } from '../../components/Title';
 import '../../styles/main/data-points.scss';
+import Loading from '../../assets/Loading';
 
 const DataPointsPage = () => {
     const columns: TableColumnsType<DATA_POINTS.IDataType> = [
@@ -31,18 +32,28 @@ const DataPointsPage = () => {
      * Take data from props and set it to state
      */
     const [data, setData] = useState<DATA_POINTS.IDataType[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
-        userService.searchByNameOrId('', 1, 10).then((response) => {
-            const newData = response?.data?.data?.results?.map((item: { id: string; ingame: string; points: number; }, index: number) => ({
-                key: index,
-                no: index + 1,
-                ingame: item.ingame,
-                id: item.id,
-                points: item.points.toLocaleString('vi-VN'),
-            }));
-            setData(newData || []);
-        },)
+        setIsLoading(true);
+        userService.searchByNameOrId('', 1, 10)
+            .then((response) => {
+                const newData = response?.data?.data?.results?.map((item: { id: string; ingame: string; points: number; }, index: number) => ({
+                    key: index,
+                    no: index + 1,
+                    ingame: item.ingame,
+                    id: item.id,
+                    points: item.points.toLocaleString('vi-VN'),
+                }));
+                setData(newData || []);
+                const timer = setTimeout(() => {
+                    setIsLoading(false);
+                }, 500);
+
+                return () => clearTimeout(timer);
+            },)
+            .catch(() => setIsLoading(false));
     }, []);
     //-------------------------------End-----------------------------------//
 
@@ -116,20 +127,27 @@ const DataPointsPage = () => {
             <div className="search d-flex justify-content-end">
                 <input type="text" className="search-input1" placeholder="Search..." onChange={handleSearch} />
             </div>
-            <Table<DATA_POINTS.IDataType>
-                className="custom-table"
-                columns={columns}
-                dataSource={data}
-                pagination={{
-                    current: pagination.current,
-                    pageSize: pagination.pageSize,
-                    total: pagination.total,
-                    showSizeChanger: true,
-                    pageSizeOptions: ['10', '15', '20', '50'],
-                }}
-                onChange={handleTableChange}
-                bordered={true}
-            />
+
+            {isLoading ? (
+                <div style={{ overflow: 'hidden' }}>
+                    <Loading />
+                </div>
+            ) : (
+                <Table<DATA_POINTS.IDataType>
+                    className="custom-table"
+                    columns={columns}
+                    dataSource={data}
+                    pagination={{
+                        current: pagination.current,
+                        pageSize: pagination.pageSize,
+                        total: pagination.total,
+                        showSizeChanger: true,
+                        pageSizeOptions: ['10', '15', '20', '50'],
+                    }}
+                    onChange={handleTableChange}
+                    bordered={true}
+                />
+            )}
         </div>
     );
 };

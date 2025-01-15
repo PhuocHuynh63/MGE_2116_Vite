@@ -1,13 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import './App.css'
-import { lazy } from "react";
+import './App.css'
+import { lazy, Suspense } from "react";
 import MainLayout from './layouts/main';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DataPointsPage from './containers/DataPoints';
-import ResultsTopPage from './containers/ResultsTop';
-import HistoryPage from './containers/History';
+
+import Loading from './assets/LoadingLogo';
 
 const HomePage = lazy(() => import('./pages/HomePage'))
+const DataPointsPage = lazy(() => import('./containers/DataPoints'));
+const ResultsTopPage = lazy(() => import('./containers/ResultsTop'));
+const HistoryPage = lazy(() => import('./containers/History'));
 
 const router = createBrowserRouter([
   {
@@ -35,7 +37,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Suspense fallback={<Loading />}>
+        <Loading>
+          <RouterProvider router={router} />
+        </Loading>
+      </Suspense>
     </>
   )
 }

@@ -10,8 +10,6 @@ import userService from "../../services/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import timerService from "../../services/timer";
 
-
-
 const Home = () => {
 
     const [message, setMessage] = useState<string>('');
