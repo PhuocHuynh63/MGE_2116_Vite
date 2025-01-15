@@ -1,10 +1,13 @@
 import { Modal, Table, TableColumnsType } from 'antd';
-import { useState } from 'react';
-import { RESULTS_TOP } from '../../types/IPage';
-import { calculateTimeLeft, formatDate } from '../../utils/helpers/date';
+import { useEffect, useState } from 'react';
+import { formatDate } from '../../utils/helpers/date';
 import { useTimeLeft } from '../../utils/hooks/TimeLeft';
 import { Title } from '../../components/Title';
 import { Button } from '../../components/Button';
+import timerService from '../../services/timer';
+import { ITimerCompleted, ITimerLeftActive } from '../../schemaValidations/model.schema';
+import userService from '../../services/user';
+import { useForm } from 'react-hook-form';
 import '../../styles/main/result-top.style.scss';
 
 interface DataType {
@@ -18,7 +21,7 @@ interface DataType {
 
 
 
-const ResultsTopPage = (props: RESULTS_TOP.IResultsTopPage) => {
+const ResultsTopPage = () => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -26,12 +29,22 @@ const ResultsTopPage = (props: RESULTS_TOP.IResultsTopPage) => {
         setOpen(true);
     };
 
-    const handleOk = () => {
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setOpen(false);
+    const { register, handleSubmit, formState: { errors } } = useForm<{ secretKey: string }>();
+
+    const handleOk = async (data: { secretKey: string }) => {
+        console.log(data);
+
+        const res = await userService.kingConfirm(data.secretKey);
+
+        if (res.status === 200) {
             setConfirmLoading(false);
-        }, 2000);
+            setOpen(false);
+        } else {
+            setConfirmLoading(false);
+            if (errors.secretKey) {
+                errors.secretKey.message = res.data.message;
+            }
+        }
     };
 
     const handleCancel = () => {
@@ -62,7 +75,29 @@ const ResultsTopPage = (props: RESULTS_TOP.IResultsTopPage) => {
         }
     ];
 
-    const data: DataType[] = props?.timerCompleted?.data?.users?.map((item: any, index: number) => {
+
+    /**
+     * Handle timer pending
+     */
+    const [timePending, setTimePending] = useState<ITimerCompleted>({
+        _id: '',
+        startTime: '',
+        endTime: '',
+        typeMge: '',
+        pointsLimit: 0,
+        status: '',
+        users: []
+    });
+    useEffect(() => {
+        timerService.getTimerPending('desc')
+            .then((res) => {
+                setTimePending(res.data.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    const data: DataType[] = timePending?.users?.map((item: any, index: number) => {
         return {
             key: index,
             top: index + 1,
@@ -71,17 +106,41 @@ const ResultsTopPage = (props: RESULTS_TOP.IResultsTopPage) => {
             points: item.points,
             date: formatDate(item?.date)
         }
-    }) || []
+    }) || [];
+    //----------------------End----------------------//
 
-    const timer = calculateTimeLeft(props.timer?.data?.endTime ?? "", props.timer?.data);
-    const timeLeft = useTimeLeft(props.timer?.data?.endTime ?? "");
+
+    /**
+     * Get data timer active
+     */
+    const [timeActive, setTimeActive] = useState<ITimerLeftActive | null>({
+        _id: '',
+        startTime: '',
+        endTime: '',
+        typeMge: '',
+        pointsLimit: 0,
+        status: '',
+    });
+    useEffect(() => {
+        timerService.getTimerActive('-users')
+            .then((res) => {
+                setTimeActive(res.data.data);
+            }).catch((err) => {
+                if (err.response.status === 404) {
+                    setTimeActive(null);
+                }
+            });
+    }, []);
+
+    const timeLeft = useTimeLeft(timeActive?.endTime ?? '');
+    //----------------------End----------------------//
 
 
     return (
         <div className="results-top" style={{ margin: '0 25px 50px 25px' }}>
             <Title className="title">LIST MEMBER BID SUCCES</Title>
 
-            {props?.timer?.data?.statusCode === 200 ?
+            {timeActive !== null ?
                 <div className="count-time">
                     <h1 className='coming-soon'>COMING SOON</h1>
                     <h2 className='time'>
@@ -106,11 +165,14 @@ const ResultsTopPage = (props: RESULTS_TOP.IResultsTopPage) => {
                     <Modal
                         title="King Confirm"
                         open={open}
-                        onOk={handleOk}
+                        onOk={() => handleSubmit(handleOk)()}
                         confirmLoading={confirmLoading}
                         onCancel={handleCancel}
                     >
-                        <input type="text" className='input-king-confirm' />
+                        <form onSubmit={handleSubmit(handleOk)}>
+                            <input type="text" className={`${errors.secretKey ? 'input-error' : 'input-king-confirm'}`}{...register('secretKey')} />
+                            {errors.secretKey && <span className={`${errors.secretKey ? 'text-error' : ''}`}>{errors.secretKey.message}</span>}
+                        </form>
                     </Modal>
                 </>
             }

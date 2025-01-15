@@ -123,3 +123,18 @@
     height: 40px;
     width: 100%;
 }
+
+.input-error {
+    border-radius: 5px;
+    width: 90%;
+    height: 110.8px;
+    transition: border 0.1s;
+    border: 1px solid #F70500;
+}
+
+.text-error {
+    width: 90%;
+    color: #F70500;
+    font-size: 20px;
+    margin-top: 5px;
+}

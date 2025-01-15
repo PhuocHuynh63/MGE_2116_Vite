@@ -28,7 +28,6 @@ const Home = () => {
 
     const onSubmit = async (data: HOME.IFormInput) => {
         const res = await userService.userRequest(data);
-        console.log(res.response);
 
         if (res.status === 201) {
             setStatusBid('success');

@@ -19,7 +19,10 @@ const userService = {
     },
     searchByNameOrId: async (term: string, current: number, pageSize: number) => {
         return await https.get(`user/search?term=${term}&current=${current}&pageSize=${pageSize}`);
-    }
+    },
+    kingConfirm: async (secretKey: string) => {
+        return await https.post(`user/king-confirm`, { secretKey });
+    },
 }
 
 export default userService;

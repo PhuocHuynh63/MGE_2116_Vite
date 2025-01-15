@@ -113,8 +113,7 @@ const TimerCompletedSchema = z.object({
     }))
 })
 
-export const TimerCompletedResponseSchema = BackendResponseSchema(TimerCompletedSchema);
-export type ITimerCompleted = z.TypeOf<typeof TimerCompletedResponseSchema>
+export type ITimerCompleted = z.TypeOf<typeof TimerCompletedSchema>
 //----------------------End----------------------//
 
 
