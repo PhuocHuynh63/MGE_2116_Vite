@@ -1,18 +1,28 @@
 
-import { HISTORY } from '../../types/IPage'
+import { useEffect, useState } from 'react'
 import '../../styles/main/history.style.scss'
+import historyService from '../../services/history'
 
-const HistoryPage = (props: HISTORY.IHistoryPage) => {
+const HistoryPage = () => {
     const handleColorPoints = (points: number) => {
         return points < 0 ? 'negative' : 'positive'
     }
 
+    const [history, setHistory] = useState([])
+    useEffect(() => {
+        historyService.getHistoryLimitNine()
+            .then((res) => {
+                setHistory(res.data.data)
+            }).catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
     return (
         <div className="history-page ">
             <div className="container my-3 mb-5">
                 <div className="row mx-3 g-4">
-                    {Array.isArray(props.data?.data) && props.data.data.map((item: any, index: number) => (
+                    {history?.map((item: any, index: number) => (
                         <div className="col-lg-4 col-md-6 col-sm-12" key={index}>
                             <div className="card">
                                 <div className="card-body">

@@ -32,8 +32,6 @@ const ResultsTopPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<{ secretKey: string }>();
 
     const handleOk = async (data: { secretKey: string }) => {
-        console.log(data);
-
         const res = await userService.kingConfirm(data.secretKey);
 
         if (res.status === 200) {

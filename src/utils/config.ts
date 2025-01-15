@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:8080/api";
-// export const BASE_URL = 'http://14.225.212.121:8080/api' // IP của nhà Kumo
+// export const BASE_URL = "http://localhost:8080/api";
+export const BASE_URL = 'http://14.225.212.121:8080/api'
 
 
 export const configHeader = () => {
