@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.active {
+    background-color: #fff !important;
+    color: #1DB475 !important;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.layout-main {
+    display: flex;
+    min-height: 100vh;
+    height: 100%;
+    // width: 100vw;
+    margin: 10px 10px 7px 0px;
+    border: 1px solid #dddcdc;
+    border-radius: 4px;
+
+    .main {
+        flex: 1;
+    }
+}
+
+.header-home {
+    .top {
+        .left {
+            button {
+                margin: 40px 40px;
+                padding: 0px 17px;
+                height: 60px;
+                font-size: 20px;
+                font-weight: bold;
+                background-color: #23A744;
+                border: 1px solid #f5f5f5;
+                border-radius: 5px;
+                color: #000;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: rgb(80, 200, 110);
+                    color: #fff;
+                }
+
+                .icon {
+                    width: 40px;
+                    height: 50px;
+                    color: #fff;
+                }
+            }
+        }
+
+        .right {
+            .command {
+                width: auto;
+
+                .logo-command {
+                    display: flex;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    height: 150px;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        margin: 0 80px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e1e1e1;
+
+        .text {
+            margin-bottom: 5px;
+            font-size: 20px;
+            color: #000;
+
+            .minimum-bid {
+                font-size: 25px;
+                font-weight: bold;
+                color: #2cc051;
+            }
+        }
+    }
+
+    .type {
+        display: flex;
+        justify-content: center;
+
+        .typeMge {
+            font-size: 23px;
+            color: #efefef;
+            background-color: #F70500;
+            border-radius: 6px;
+            padding: 6px 22px 8px 22px;
+        }
+    }
+
+    @media screen and (max-width: 769px) {
+        .bottom {
+            margin: 0px;
+
+            .text {
+                margin-right: 20px;
+                font-size: 20px;
+                color: #000;
+
+                .minimum-bid {
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: #2cc051;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 769px) {
+    .layout-main {
+        position: relative;
+        z-index: 0;
+        margin: 0;
+    }
+}
+
+
+@media screen and (max-width: 426px) {}

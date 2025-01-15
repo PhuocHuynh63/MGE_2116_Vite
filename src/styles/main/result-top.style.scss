@@ -1,0 +1,125 @@
+.results-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .count-time {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(45deg, #18A5A7, #BFFFC7);
+        border-radius: 5px;
+        width: 90%;
+        height: 500px;
+
+        .coming-soon {
+            font-size: 80px;
+            font-weight: 700;
+            color: #f6f6f6;
+        }
+
+        .time {
+            color: #000;
+            margin-right: 10px;
+            display: flex;
+            gap: 15px;
+
+            .number {
+                font-size: 80px;
+                font-weight: 700;
+                color: #f6f6f6;
+            }
+
+            .text {
+                font-size: 40px;
+                color: #f6f6f6;
+            }
+        }
+    }
+
+    .custom-table {
+        width: 90%;
+        margin-bottom: 30px;
+    }
+
+
+    @media screen and (max-width: 1025px) {
+        .count-time {
+            .time {
+                color: #000;
+                margin-right: 10px;
+                display: flex;
+                gap: 15px;
+
+                .number {
+                    font-size: 60px;
+                    font-weight: 700;
+                    color: #f6f6f6;
+
+                }
+
+                .text {
+                    font-size: 30px;
+                    color: #f6f6f6;
+
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 769px) {
+        .count-time {
+            margin: 40px 0px;
+
+            .time {
+                color: #000;
+                margin-right: 10px;
+                display: flex;
+                gap: 15px;
+
+                .number {
+                    font-size: 60px;
+                    font-weight: 700;
+                    color: #f6f6f6;
+
+                }
+
+                .text {
+                    font-size: 30px;
+                    color: #f6f6f6;
+
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 426px) {
+        .count-time {
+            width: 100%;
+
+            .coming-soon {
+                font-size: 45px;
+            }
+
+            .time {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                justify-items: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.input-king-confirm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0 10px;
+    height: 40px;
+    width: 100%;
+}

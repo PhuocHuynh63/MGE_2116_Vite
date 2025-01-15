@@ -1,0 +1,121 @@
+.sidebar-main-container {
+    transition: all 0.3s ease-in-out;
+    height: 100%;
+
+    .sidebar-main {
+        background-color: #F9F9F9;
+        height: 100%;
+        width: 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+
+        &.open {
+            width: 250px;
+
+            .logo {
+                background: url('https://res.cloudinary.com/dtl80dani/image/upload/v1733633335/2116-8-12-2024_mapll0.png') no-repeat center center;
+                background-size: contain;
+                height: 100px;
+                cursor: pointer;
+            }
+
+            .content {
+                font-family: Arial, sans-serif;
+                font-size: 20px;
+                padding: 0;
+                border-top: 1px solid #e0e0e0;
+                transition: opacity 0.3s ease-in-out;
+
+                a {
+                    display: block;
+                    border-bottom: 1px solid #e0e0e0;
+                    color: rgb(47, 47, 47);
+                    padding: 25px 24px;
+                    text-decoration: none;
+                    transition: background-color 0.2s;
+
+                    &:hover {
+                        color: rgb(56, 56, 56);
+                        background-color: #e0e0e0b8;
+                    }
+
+                }
+
+                li {
+                    list-style: none;
+                }
+            }
+        }
+
+        &.close {
+            .logo {
+                display: none;
+            }
+
+            .content {
+                display: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .sidebar-main-container {
+        position: absolute;
+        z-index: 1;
+
+        .sidebar-main {
+            background-color: #F6F6F6 !important;
+            min-height: 100vh;
+            height: 100%;
+            width: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+
+            &.open {
+                width: 230px;
+
+                .filter-blur {
+                    position: absolute;
+                    background-color: rgba(36, 36, 36, 0.512);
+                    width: 100vw;
+                    height: 100%;
+                    z-index: -1;
+                }
+
+                .logo {
+                    background: url('https://res.cloudinary.com/dtl80dani/image/upload/v1733633335/2116-8-12-2024_mapll0.png') no-repeat center center;
+                    background-size: contain;
+                    height: 100px;
+                    cursor: pointer;
+                }
+
+                .content {
+                    font-family: Arial, sans-serif;
+                    font-size: 20px;
+                    border-top: 1px solid #e0e0e0;
+                    transition: opacity 0.3s ease-in-out;
+
+                    a {
+                        display: block;
+                        border-bottom: 1px solid #e0e0e0;
+                        color: rgb(47, 47, 47);
+                        padding: 25px 24px;
+                        text-decoration: none;
+                        transition: background-color 0.2s;
+
+                        &:hover {
+                            color: rgb(56, 56, 56);
+                            background-color: #e0e0e0b8;
+                        }
+
+                    }
+
+                    li {
+                        list-style: none;
+                    }
+                }
+            }
+        }
+    }
+}

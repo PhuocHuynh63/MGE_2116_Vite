@@ -1,0 +1,36 @@
+.history-page {
+    .card {
+
+        &_ingame,
+        &_id {
+            color: #535353;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .card-points {
+            font-size: 1.13rem;
+            font-weight: 600;
+
+            &.negative {
+                color: rgb(246, 46, 46);
+            }
+
+            &.positive {
+                color: rgb(36, 133, 36);
+            }
+        }
+
+        .card-description {
+            margin: 4px 0;
+            font-size: 1.03rem;
+            color: #4b4b4b;
+        }
+
+        .card-time {
+            margin-top: 7px;
+            font-size: 1.03rem;
+            color: #4b4b4b;
+        }
+    }
+}
