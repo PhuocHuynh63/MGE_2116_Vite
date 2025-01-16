@@ -2,7 +2,7 @@ import { IUser } from "../schemaValidations/model.schema";
 
 declare namespace IREDUX {
     interface IGLOBALSTATE {
-        isLoading: boolean;
+        isLoadingDataPoints: boolean;
         dataPoints: IUser[];
     }
 

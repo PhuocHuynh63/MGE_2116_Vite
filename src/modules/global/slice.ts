@@ -5,13 +5,16 @@ const editorSlice = createSlice({
     name: "global",
     initialState,
     reducers: {
-        dataPoints(state, action) {
+        setDataPoints(state, action) {
             state.dataPoints = action.payload;
+        },
+        setIsLoadingDataPoints(state, action) {
+            state.isLoadingDataPoints = action.payload;
         }
     },
 });
 
-export const { } = editorSlice.actions;
+export const { setDataPoints, setIsLoadingDataPoints } = editorSlice.actions;
 
 
 export default editorSlice.reducer;
