@@ -1,14 +1,14 @@
 import { Modal, Table, TableColumnsType } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { formatDate } from '../../utils/helpers/date';
 import { useTimeLeft } from '../../utils/hooks/TimeLeft';
 import { Title } from '../../components/Title';
 import { Button } from '../../components/Button';
-import timerService from '../../services/timer';
-import { ITimerCompleted, ITimerLeftActive } from '../../schemaValidations/model.schema';
 import userService from '../../services/user';
 import { useForm } from 'react-hook-form';
 import '../../styles/main/result-top.style.scss';
+import { useSelector } from 'react-redux';
+import { selectTimer } from '../../modules/global/selector';
 
 interface DataType {
     key: number;
@@ -77,25 +77,9 @@ const ResultsTopPage = () => {
     /**
      * Handle timer pending
      */
-    const [timePending, setTimePending] = useState<ITimerCompleted>({
-        _id: '',
-        startTime: '',
-        endTime: '',
-        typeMge: '',
-        pointsLimit: 0,
-        status: '',
-        users: []
-    });
-    useEffect(() => {
-        timerService.getTimerPending('desc')
-            .then((res) => {
-                setTimePending(res.data.data);
-            }).catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    const timer = useSelector(selectTimer);
 
-    const data: DataType[] = timePending?.users?.map((item: any, index: number) => {
+    const data: DataType[] = timer?.users?.map((item: any, index: number) => {
         return {
             key: index,
             top: index + 1,
@@ -109,36 +93,16 @@ const ResultsTopPage = () => {
 
 
     /**
-     * Get data timer active
+     * Handle timer active
      */
-    const [timeActive, setTimeActive] = useState<ITimerLeftActive | null>({
-        _id: '',
-        startTime: '',
-        endTime: '',
-        typeMge: '',
-        pointsLimit: 0,
-        status: '',
-    });
-    useEffect(() => {
-        timerService.getTimerActive('-users')
-            .then((res) => {
-                setTimeActive(res.data.data);
-            }).catch((err) => {
-                if (err.response.status === 404) {
-                    setTimeActive(null);
-                }
-            });
-    }, []);
-
-    const timeLeft = useTimeLeft(timeActive?.endTime ?? '');
+    const timeLeft = useTimeLeft(timer?.endTime ?? '');
     //----------------------End----------------------//
-
 
     return (
         <div className="results-top" style={{ margin: '0 25px 50px 25px' }}>
             <Title className="title">LIST MEMBER BID SUCCES</Title>
 
-            {timeActive !== null ?
+            {timer?.status === 'active' ?
                 <div className="count-time">
                     <h1 className='coming-soon'>COMING SOON</h1>
                     <h2 className='time'>

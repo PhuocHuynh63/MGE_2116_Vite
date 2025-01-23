@@ -21,16 +21,12 @@ export const BackendResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
  * MgeShema is a schema for MGE data
  */
 const MgeSchema = z.object({
-    results: z.array(z.object({
-        id: z.string(),
-        name: z.string(),
-        typeMge: z.string(),
-        img: z.string(),
-    }))
+    id: z.string(),
+    name: z.string(),
+    typeMge: z.string(),
+    img: z.string(),
 })
-
-export const MgeResponseSchema = BackendResponseSchema(MgeSchema);
-export type IMGE = z.TypeOf<typeof MgeResponseSchema>;
+export type IMGE = z.TypeOf<typeof MgeSchema>;
 //----------------------End----------------------//
 
 

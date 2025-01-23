@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { HOME } from "../../types/IPage";
-import { ITimerLeftActive, UserRequestSchema } from "../../schemaValidations/model.schema";
+import { UserRequestSchema } from "../../schemaValidations/model.schema";
 import { useTimeLeft } from "../../utils/hooks/TimeLeft";
 import { Title } from "../../components/Title";
 import { Button } from "../../components/Button";
 import { useForm } from "react-hook-form";
 import { GiInfo } from "react-icons/gi";
 import userService from "../../services/user";
-import { yupResolver } from "@hookform/resolvers/yup";
-import timerService from "../../services/timer";
+import { yupResolver } from "@hookform/resolvers/yup";;
+import { useSelector } from "react-redux";
+import { selectTimer } from "../../modules/global/selector";
 
 const Home = () => {
 
@@ -44,22 +45,7 @@ const Home = () => {
     /**
      * Calculate time left on client side
      */
-    const [timer, setTimer] = useState<ITimerLeftActive>({
-        _id: '',
-        startTime: '',
-        endTime: '',
-        typeMge: '',
-        pointsLimit: 0,
-        status: ''
-    });
-    useEffect(() => {
-        timerService.getTimerActive('-users')
-            .then((res) => {
-                setTimer(res.data.data);
-            }).catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    const timer = useSelector(selectTimer);
     const timeLeft = useTimeLeft(timer?.endTime ?? '');
     //----------------------End----------------------//
 

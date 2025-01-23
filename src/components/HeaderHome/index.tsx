@@ -1,24 +1,31 @@
 
 import { FiAlignJustify } from 'react-icons/fi'
 import { useMenu } from '../../lib/menu.provider';
-import { useEffect, useState } from 'react';
-import mgeService from '../../services/mge';
-import { IMGE } from '../../schemaValidations/model.schema';
 import '../../styles/main/home.style.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMge, selectTimer } from '../../modules/global/selector';
+import { useEffect } from 'react';
 
 const HeaderHome = () => {
+    /**
+     * Toggle menu
+     */
     const menuContext = useMenu();
     const toggleMenu = menuContext?.toggleMenu;
+    //-------------------End-------------------//
 
-    const [mge, setMge] = useState<IMGE[]>([]);
+
+    /**
+     * Get MGE by type MGE
+     */
+    const mge = useSelector(selectMge);
+    //-------------------End-------------------//
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        mgeService.getMge(1, 10)
-            .then((res) => {
-                setMge(res.data.data.results);
-            }).catch((err) => {
-                console.log(err);
-            });
+        dispatch({ type: 'getTimer', payload: 'desc' });
     }, []);
+
     return (
         <div className="header-home">
             <div className="top d-flex">
@@ -30,7 +37,7 @@ const HeaderHome = () => {
 
                 <div className="right container">
                     <div className="row justify-content-center">
-                        {mge.map((item: any, index: number) => (
+                        {mge?.map((item: any, index: number) => (
                             <div key={index} className="command">
                                 <img src={item.img} className="logo-command" alt={item.name} />
                             </div>
@@ -45,7 +52,7 @@ const HeaderHome = () => {
             </div>
 
             <div className="type">
-                <span className='typeMge'></span>
+                <span className='typeMge'>{mge[0]?.typeMge}</span>
             </div>
         </div>
     )

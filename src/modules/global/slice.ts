@@ -10,11 +10,26 @@ const editorSlice = createSlice({
         },
         setIsLoadingDataPoints(state, action) {
             state.isLoadingDataPoints = action.payload;
-        }
+        },
+        setMge(state, action) {
+            state.mge = action.payload;
+        },
+        setTimer(state, action) {
+            state.timer = action.payload;
+        },
+        setPagination(state, action) {
+            state.pagination = action.payload;
+        },
     },
 });
 
-export const { setDataPoints, setIsLoadingDataPoints } = editorSlice.actions;
+export const {
+    setPagination,
+    setTimer,
+    setMge,
+    setDataPoints,
+    setIsLoadingDataPoints
+} = editorSlice.actions;
 
 
 export default editorSlice.reducer;

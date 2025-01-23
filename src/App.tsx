@@ -1,15 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import MainLayout from './layouts/main';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Loading from './assets/LoadingLogo';
+import HomePage from './pages/HomePage';
+import DataPointsPage from './containers/DataPoints';
+import ResultsTopPage from './containers/ResultsTop';
+import HistoryPage from './containers/History';
 
-const HomePage = lazy(() => import('./pages/HomePage'))
-const DataPointsPage = lazy(() => import('./containers/DataPoints'));
-const ResultsTopPage = lazy(() => import('./containers/ResultsTop'));
-const HistoryPage = lazy(() => import('./containers/History'));
+
 
 const router = createBrowserRouter([
   {

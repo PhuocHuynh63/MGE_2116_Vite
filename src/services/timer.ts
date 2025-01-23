@@ -5,8 +5,8 @@ const timerService = {
     getTimerActive: async (selectedFields: string) => {
         return await https.get(`/timer/timer-active?selectedFields=${selectedFields}`);
     },
-    getTimerPending: (sort: string) => {
-        return https.get(`/timer/timer-pending?sort=${sort}`);
+    getATimer: (sort: string, status: string) => {
+        return https.get(`/timer/timer-pending?sort=${sort}&status=${status}`);
     },
     setTimer: (data: any) => {
         return https.post('/timer/set-timer', data);

@@ -6,8 +6,6 @@ import { IUser } from '../../schemaValidations/model.schema';
 import { Title } from '../../components/Title';
 import '../../styles/main/data-points.scss';
 import Loading from '../../assets/Loading';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectDataPoints, selectLoadingDataPoints } from '../../modules/global/selector';
 
 const DataPointsPage = () => {
     const columns: TableColumnsType<DATA_POINTS.IDataType> = [
@@ -34,17 +32,29 @@ const DataPointsPage = () => {
      * Take data from props and set it to state
      */
     const [data, setData] = useState<DATA_POINTS.IDataType[]>([]);
-    const dispath = useDispatch();
-    const dataPoints = useSelector(selectDataPoints);
-    const isLoading = useSelector(selectLoadingDataPoints);
-    const [search, setSearch] = useState('');
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
-    };
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
-        dispath({ type: 'getDataPoints', payload: { search: '', current: 1, pageSize: 10 } });
-    }, [search, dispath]);
+        setIsLoading(true);
+        userService.searchByNameOrId('', 1, 10)
+            .then((response) => {
+                const newData = response?.data?.data?.results?.map((item: { id: string; ingame: string; points: number; }, index: number) => ({
+                    key: index,
+                    no: index + 1,
+                    ingame: item.ingame,
+                    id: item.id,
+                    points: item.points.toLocaleString('vi-VN'),
+                }));
+                setData(newData || []);
+                const timer = setTimeout(() => {
+                    setIsLoading(false);
+                }, 500);
+
+                return () => clearTimeout(timer);
+            },)
+            .catch(() => setIsLoading(false));
+    }, []);
     //-------------------------------End-----------------------------------//
 
 
@@ -81,6 +91,35 @@ const DataPointsPage = () => {
     };
     //-------------------------------End-----------------------------------//
 
+
+    /**
+     * Handle search
+     */
+    const [search, setSearch] = useState('');
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+    };
+    useEffect(() => {
+        const searchByNameOrId = async () => {
+            const response = await userService.searchByNameOrId(search, 1, 10) as IUser;
+            const newData = response?.data?.data?.results?.map((item: { id: string; ingame: string; points: number; }, index: number) => ({
+                key: index,
+                no: index + 1,
+                ingame: item.ingame,
+                id: item.id,
+                points: item.points.toLocaleString('vi-VN'),
+            }));
+            setData(newData || []);
+            setPagination({
+                current: response?.data?.data?.meta.current || 1,
+                pageSize: response?.data?.data?.meta.pageSize || 10,
+                total: response?.data?.data?.meta.totalItem || 0,
+            });
+        };
+        searchByNameOrId();
+    }, [search]);
+    //-------------------------------End-----------------------------------//
+
     return (
         <div className="data-points" style={{ margin: '0 25px' }}>
             <Title className="title">TOTAL POINT MEMBER 2116</Title>
@@ -97,13 +136,7 @@ const DataPointsPage = () => {
                 <Table<DATA_POINTS.IDataType>
                     className="custom-table"
                     columns={columns}
-                    dataSource={dataPoints.map((item, index) => ({
-                        key: index,
-                        no: index + 1,
-                        ingame: item.data?.data?.results[index]?.ingame || '',
-                        id: item.data?.data?.results[index]?.id || '',
-                        points: item.data?.data?.results[index]?.points.toLocaleString('vi-VN') || '',
-                    }))}
+                    dataSource={data}
                     pagination={{
                         current: pagination.current,
                         pageSize: pagination.pageSize,
