@@ -3,7 +3,7 @@ import { FiAlignJustify } from 'react-icons/fi'
 import { useMenu } from '../../lib/menu.provider';
 import '../../styles/main/home.style.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMge, selectTimer } from '../../modules/global/selector';
+import { selectMge } from '../../modules/global/selector';
 import { useEffect } from 'react';
 
 const HeaderHome = () => {

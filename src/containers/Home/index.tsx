@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HOME } from "../../types/IPage";
 import { UserRequestSchema } from "../../schemaValidations/model.schema";
 import { useTimeLeft } from "../../utils/hooks/TimeLeft";
@@ -34,7 +34,7 @@ const Home = () => {
             reset();
         } else if (res.status === 400) {
             setStatusBid('error');
-            setMessage(res?.data?.message);
+            setMessage(res?.response?.data?.message);
         } else {
             setStatusBid('');
         }
