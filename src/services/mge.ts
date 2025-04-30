@@ -1,11 +1,11 @@
-import { https } from "../utils/config";
+import { axiosClient } from "../configs/axios";
 
 const mgeService = {
     getMge: (current: number, pageSize: number) => {
-        return https.get(`/mge/all?current=${current}&pageSize=${pageSize}`);
+        return axiosClient.get(`/mge/all?current=${current}&pageSize=${pageSize}`);
     },
     getTypeMge: (typeMge: string) => {
-        return https.get(`/mge/type-mge?typeMge=${typeMge}`);
+        return axiosClient.get(`/mge/type-mge?typeMge=${typeMge}`);
     }
 }
 

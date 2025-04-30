@@ -1,11 +1,11 @@
+import { axiosClient } from "../configs/axios";
 import { IUserRequest } from "../schemaValidations/model.schema";
-import { https } from "../utils/config";
 
 
 const userService = {
     userRequest: async (data: IUserRequest) => {
         try {
-            return await https.post('/user/request-point', data);
+            return await axiosClient.post('/user/request-point', data);
         } catch (error: any) {
             if (error.response) {
                 return error;
@@ -15,13 +15,13 @@ const userService = {
         }
     },
     getAllUser: async (current: number, pageSize: number) => {
-        return await https.get(`user?current=${current}&pageSize=${pageSize}`);
+        return await axiosClient.get(`user?current=${current}&pageSize=${pageSize}`);
     },
     searchByNameOrId: async (term: string, current: number, pageSize: number) => {
-        return await https.get(`user/search?term=${term}&current=${current}&pageSize=${pageSize}`);
+        return await axiosClient.get(`user/search?term=${term}&current=${current}&pageSize=${pageSize}`);
     },
     kingConfirm: async (secretKey: string) => {
-        return await https.post(`user/king-confirm`, { secretKey });
+        return await axiosClient.post(`user/king-confirm`, { secretKey });
     },
 }
 

@@ -1,8 +1,8 @@
-import { https } from "../utils/config";
+import { axiosClient } from "../configs/axios";
 
 const historyService = {
     getHistoryLimitNine: () => {
-        return https.get('/history');
+        return axiosClient.get('/history');
     },
 }
 

@@ -1,7 +1,4 @@
-#docker
-docker-compose.yml
-Dockerfile
-nginx.conf
+
 
 # dotenv environment variable files
 .env
