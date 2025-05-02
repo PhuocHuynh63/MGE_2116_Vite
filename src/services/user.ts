@@ -20,6 +20,9 @@ const userService = {
     searchByNameOrId: async (term: string, current: number, pageSize: number) => {
         return await axiosClient.get(`user/search?term=${term}&current=${current}&pageSize=${pageSize}`);
     },
+    updateUser: async (data: any) => {
+        return await axiosClient.post(`user/update-user`, data);
+    },
     kingConfirm: async (secretKey: string) => {
         return await axiosClient.post(`user/king-confirm`, { secretKey });
     },

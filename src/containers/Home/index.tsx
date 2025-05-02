@@ -124,22 +124,6 @@ const Home = () => {
                     {errors.secretKey && <span className={`${errors.secretKey ? 'text-error' : ''}`}>{errors.secretKey.message}</span>}
                 </div>
 
-                <div className="form-group">
-                    <div className={`${errors.email ? 'input-error' : 'input'}`}>
-                        <label htmlFor="email" className="d-flex align-items-center">
-                            Email (Optional)
-                            <span className="custom-tooltip" style={{ marginLeft: '5px' }}>
-                                <GiInfo />
-                                <div className="tooltip-box">
-                                    When you enter your email, the system will notify you via email when the auction ends.
-                                </div>
-                            </span>
-                        </label>
-                        <input type="text" {...register('email', { required: true })} placeholder="abcxyz123@gmail.com" />
-                    </div>
-                    {errors.email && <span className={`${errors.email ? 'text-error' : ''}`}>{errors.email.message}</span>}
-                </div>
-
                 <div className="submit">
                     <Button timeDelay={900} onClick={handleSubmit(onSubmit)} type="submit">Submit</Button>
                 </div>

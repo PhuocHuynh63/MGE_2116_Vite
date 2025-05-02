@@ -1,0 +1,71 @@
+.sidebar-admin-container {
+    background-color: #343a40;
+    color: #fff;
+    width: 250px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+    /* Thêm hiệu ứng chuyển động khi mở/đóng */
+
+    &.close {
+        width: 70px;
+        /* Thu gọn chiều rộng khi đóng sidebar */
+    }
+
+    .logo {
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        padding: 20px;
+        cursor: pointer;
+        transition: padding 0.3s ease;
+
+        /* Thay đổi khi mở/đóng sidebar */
+        &:hover {
+            background-color: #495057;
+        }
+    }
+
+    .menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .menu-item {
+            margin-bottom: 10px;
+
+            a {
+                display: block;
+                padding: 10px 15px;
+                color: #eee;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+
+                &:hover,
+                &.active {
+                    background-color: #495057;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .sidebar {
+        width: 0;
+        /* Bắt đầu với sidebar đóng trên màn hình nhỏ */
+        transition: width 0.3s ease;
+
+        &.open {
+            width: 250px;
+            /* Mở sidebar trên màn hình nhỏ */
+        }
+    }
+}

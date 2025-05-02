@@ -46,7 +46,6 @@ export const UserRequestSchema = yup.object({
         .required('Point is required')
         .moreThan(9999999, 'Point must be greater than 10,000,000'),
     secretKey: yup.string().required('Secret key is required'),
-    email: yup.string().email('Invalid email').optional(),
 }).required()
 
 export type IUserRequest = yup.InferType<typeof UserRequestSchema>

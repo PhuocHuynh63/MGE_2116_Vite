@@ -8,7 +8,7 @@ const MainLayout: React.FC<{ Component: React.ElementType }> = ({ Component }) =
     return (
         <MenuProvider>
             <div className="layout-main">
-                <div className="sidebar">
+                <div className="sidebar-main">
                     <SideBarMain />
                 </div>
 

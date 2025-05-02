@@ -1,0 +1,12 @@
+.navbar {
+    background-color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+
+    .user-info {
+        font-weight: bold;
+        color: #333;
+    }
+}

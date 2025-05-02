@@ -1,0 +1,41 @@
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+
+    /* Đảm bảo các phần tử con nằm theo chiều ngang trên màn hình lớn */
+    @media screen and (max-width: 769px) {
+        flex-direction: column;
+        /* Chuyển thành cột trên màn hình nhỏ */
+    }
+
+    .sidebar-admin {
+        width: 250px;
+        background-color: #001529;
+        flex-shrink: 0;
+        transition: width 0.3s ease;
+
+        @media screen and (max-width: 769px) {
+            width: 0;
+
+            /* Sidebar đóng lại khi màn hình nhỏ */
+            &.open {
+                width: 250px;
+                /* Mở sidebar khi kích hoạt */
+            }
+        }
+    }
+
+    .admin-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background-color: #f4f6f8;
+        transition: margin-left 0.3s ease;
+
+        /* Thêm hiệu ứng khi sidebar mở/đóng */
+        @media screen and (max-width: 769px) {
+            margin-left: 0;
+        }
+    }
+}

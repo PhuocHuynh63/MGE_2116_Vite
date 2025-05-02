@@ -9,6 +9,11 @@ import HomePage from './pages/HomePage';
 import DataPointsPage from './containers/DataPoints';
 import ResultsTopPage from './containers/ResultsTop';
 import HistoryPage from './containers/History';
+import MgeAdminForm from './containers/Admin';
+import { Toaster } from 'react-hot-toast';
+import AdminLayout from './layouts/admin';
+import AdminUsersPage from './containers/AdminUsers';
+import { ROUTES } from './routes';
 
 
 
@@ -18,27 +23,36 @@ const router = createBrowserRouter([
     // element: <NotFoundPage/>
   },
   {
-    path: "/",
+    path: ROUTES.BID_MGE,
     element: <MainLayout Component={HomePage} />
   },
   {
-    path: "/data-points",
+    path: ROUTES.DATA_POINTS,
     element: <MainLayout Component={DataPointsPage} />
   },
   {
-    path: "/results-top",
+    path: ROUTES.RESULTS_TOP,
     element: <MainLayout Component={ResultsTopPage} />
   },
   {
-    path: "/history",
+    path: ROUTES.HISTORY,
     element: <MainLayout Component={HistoryPage} />
   },
+  {
+    path: ROUTES.ADMIN_MGE,
+    element: <AdminLayout Component={MgeAdminForm} />
+  },
+  {
+    path: ROUTES.ADMIN_USERS,
+    element: <AdminLayout Component={AdminUsersPage} />
+  }
 ])
 
 function App() {
   return (
     <>
       <Suspense fallback={<Loading />}>
+        <Toaster />
         <Loading>
           <RouterProvider router={router} />
         </Loading>

@@ -13,7 +13,7 @@ const timerService = {
     },
     updateStatusTimerToPending: () => {
         return axiosClient.put('/timer/update/status-timer-pending', {});
-    }
+    },
 }
 
 export default timerService;
