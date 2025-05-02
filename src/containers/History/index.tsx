@@ -10,9 +10,9 @@ const HistoryPage = () => {
 
     const [history, setHistory] = useState([])
     useEffect(() => {
-        historyService.getHistoryLimitNine()
+        historyService.getHistoryLimitNine(1, 9, 'desc')
             .then((res) => {
-                setHistory(res.data.data)
+                setHistory(res.data.data.histories)
             }).catch((err) => {
                 console.log(err)
             })

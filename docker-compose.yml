@@ -1,14 +1,22 @@
 version: '3.8'
-
 services:
   nginx:
-    image: nginx:1.23.3
-    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
     ports:
       - "80:80"
     volumes:
-      - /home/root/FE/dist:/usr/share/nginx/html
-      - /home/root/FE/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    command: ["nginx", "-g", "daemon off;"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - mge2116net
 
