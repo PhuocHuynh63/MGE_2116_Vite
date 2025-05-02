@@ -9,7 +9,6 @@ const SidebarAdmin: React.FC = () => {
     const isOpenMenu = menuContext?.isMenuOpen;
     const toggleMenu = menuContext?.toggleMenu;
 
-
     return (
         <div className={`sidebar-admin-container ${isOpenMenu ? 'open' : 'close'}`}>
             <div className="logo" onClick={toggleMenu}>
@@ -17,13 +16,19 @@ const SidebarAdmin: React.FC = () => {
             </div>
             <ul className="menu">
                 <li className="menu-item">
-                    <NavLink to={ROUTES.ADMIN_MGE} className={({ isActive }) => isActive ? 'active' : ''}>
-                        Cấu hình MGE
+                    <NavLink
+                        to={ROUTES.ADMIN_MGE}
+                        className={({ isActive }) => isActive ? 'active' : ''}
+                    >
+                        {isOpenMenu ? 'Cấu hình MGE' : 'MGE'}
                     </NavLink>
                 </li>
                 <li className="menu-item">
-                    <NavLink to={ROUTES.ADMIN_USERS} className={({ isActive }) => isActive ? 'active' : ''}>
-                        Quản lý Người dùng
+                    <NavLink
+                        to={ROUTES.ADMIN_USERS}
+                        className={({ isActive }) => isActive ? 'active' : ''}
+                    >
+                        {isOpenMenu ? 'Quản lý Người dùng' : 'Users'}
                     </NavLink>
                 </li>
             </ul>
