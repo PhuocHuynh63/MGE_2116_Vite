@@ -67,7 +67,7 @@ const Admin = () => {
                                     type="username"
                                     className="form-control"
                                     id="username"
-                                    placeholder="Nhập username"
+                                    placeholder="Nhập tên nguời dùng"
                                     required
                                     {...register("username", { required: true })}
                                 />
