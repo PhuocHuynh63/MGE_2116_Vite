@@ -55,7 +55,6 @@ const AdminUsersPage = () => {
     }, [search]);
 
     const fetchData = async (keyword: string, page: number, size: number) => {
-        setIsLoading(true);
         try {
             const response = await userService.searchByNameOrId(keyword, page, size) as IUser;
             const newData = response?.data?.data?.results?.map((item: any, index: number) => ({

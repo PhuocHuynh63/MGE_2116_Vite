@@ -31,6 +31,14 @@ const SidebarAdmin: React.FC = () => {
                         {isOpenMenu ? 'Quản lý Người dùng' : 'Users'}
                     </NavLink>
                 </li>
+                <li className="menu-item">
+                    <NavLink
+                        to={ROUTES.ADMIN_HISTORY}
+                        className={({ isActive }) => isActive ? 'active' : ''}
+                    >
+                        {isOpenMenu ? 'Lịch sử MGE' : 'History'}
+                    </NavLink>
+                </li>
             </ul>
         </div>
     );

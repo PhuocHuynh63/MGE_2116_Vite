@@ -99,24 +99,34 @@ const DataPointsPage = () => {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
-    useEffect(() => {
-        const searchByNameOrId = async () => {
-            const response = await userService.searchByNameOrId(search, 1, 10) as IUser;
-            const newData = response?.data?.data?.results?.map((item: { id: string; ingame: string; points: number; }, index: number) => ({
+
+    const fetchData = async (keyword: string, page: number, size: number) => {
+        try {
+            const response = await userService.searchByNameOrId(keyword, page, size) as IUser;
+            const newData = response?.data?.data?.results?.map((item: any, index: number) => ({
                 key: index,
-                no: index + 1,
+                no: index + 1 + (page - 1) * size,
                 ingame: item.ingame,
                 id: item.id,
                 points: item.points.toLocaleString('vi-VN'),
+                rawPoints: item.points, // cần giữ để hiển thị mặc định trong modal
             }));
+
             setData(newData || []);
             setPagination({
                 current: response?.data?.data?.meta.current || 1,
                 pageSize: response?.data?.data?.meta.pageSize || 10,
                 total: response?.data?.data?.meta.totalItem || 0,
             });
-        };
-        searchByNameOrId();
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchData(search, 1, 10);
     }, [search]);
     //-------------------------------End-----------------------------------//
 
