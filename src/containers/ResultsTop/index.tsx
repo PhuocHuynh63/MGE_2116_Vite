@@ -1,6 +1,6 @@
 import { Modal, Table, TableColumnsType } from 'antd';
 import { useState } from 'react';
-import { formatDate } from '../../utils/helpers/date';
+import { formatDate } from '../../utils/helpers/date/date';
 import { useTimeLeft } from '../../utils/hooks/TimeLeft';
 import { Title } from '../../components/Title';
 import { Button } from '../../components/Button';

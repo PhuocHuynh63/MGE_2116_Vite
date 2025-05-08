@@ -5,3 +5,15 @@
 .custom-table tbody tr td {
   font-size: 18px;
 }
+
+.text-primary {
+  color: #28a745;
+}
+
+.background-primary {
+  background-color: #28a745 !important;
+}
+
+.hover-background-primary:hover {
+  background-color: #218838 !important;
+}

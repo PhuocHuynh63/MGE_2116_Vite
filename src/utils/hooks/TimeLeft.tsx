@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { calculateTimeLeft } from "../helpers/date";
+import { calculateTimeLeft } from "../helpers/date/date";
 import timerService from "../../services/timer";
 
 export const useTimeLeft = (endTime: string | null) => {

@@ -26,6 +26,9 @@ const userService = {
     kingConfirm: async (secretKey: string) => {
         return await axiosClient.post(`user/king-confirm`, { secretKey });
     },
+    login: async (data: any) => {
+        return await axiosClient.post(`auth/login`, data);
+    },
 }
 
 export default userService;
