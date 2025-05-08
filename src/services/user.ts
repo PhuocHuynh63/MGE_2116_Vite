@@ -29,6 +29,9 @@ const userService = {
     login: async (data: any) => {
         return await axiosClient.post(`auth/login`, data);
     },
+    exportUser: async () => {
+        return await axiosClient.get(`user/export`, { responseType: 'blob' });
+    }
 }
 
 export default userService;

@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import '../../styles/main/result-top.style.scss';
 import { useSelector } from 'react-redux';
 import { selectTimer } from '../../modules/global/selector';
+import toast from 'react-hot-toast';
 
 interface DataType {
     key: number;
@@ -33,10 +34,12 @@ const ResultsTopPage = () => {
 
     const handleOk = async (data: { secretKey: string }) => {
         const res = await userService.kingConfirm(data.secretKey);
+        console.log(res);
 
         if (res.status === 200) {
             setConfirmLoading(false);
             setOpen(false);
+            toast.success(res.data.message);
         } else {
             setConfirmLoading(false);
             if (errors.secretKey) {

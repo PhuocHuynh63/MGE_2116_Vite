@@ -127,11 +127,31 @@ const AdminUsersPage = () => {
         }
     };
 
+
+    const handleExport = async () => {
+        try {
+            const response = await userService.exportUser();
+            const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'user.xlsx';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        catch (error) {
+            console.error('Failed to export data:', error);
+        }
+    };
+
     return (
         <div className="admin-users" style={{ margin: '0 25px' }}>
             <Title className="title">Quản lý thành viên 2116</Title>
 
-            <div className="search d-flex justify-content-end">
+            <div className="search d-flex justify-content-between mb-3">
+                <Button type="primary" onClick={handleExport} style={{ marginRight: '10px' }}>
+                    Xuất danh sách
+                </Button>
                 <input type="text" className="search-input1" placeholder="Search..." onChange={handleSearch} />
             </div>
 

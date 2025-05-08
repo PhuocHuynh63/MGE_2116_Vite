@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Table, TableColumnsType, TableProps } from 'antd';
 import { DATA_POINTS } from '../../types/IPage';
 import { Title } from '../../components/Title';
 import Loading from '../../assets/Loading';
@@ -125,7 +125,7 @@ const AdminHistoryPage = () => {
             </div> */}
 
             <div className="search d-flex justify-content-start mb-2">
-                <button onClick={handleExport}>Xuất dữ liệu</button>
+                <Button type="primary" onClick={handleExport}>Xuất dữ liệu</Button>
             </div>
 
             {isLoading ? (
