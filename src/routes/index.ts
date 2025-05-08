@@ -6,4 +6,5 @@ export enum ROUTES {
     ADMIN_DASHBOARD = '/admin/dashboard',
     ADMIN_MGE = '/admin/mge',
     ADMIN_USERS = '/admin/users',
+    ADMIN_HISTORY = '/admin/history',
 }

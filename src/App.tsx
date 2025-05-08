@@ -1,27 +1,24 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './App.css'
-import { Suspense } from "react";
-import MainLayout from './layouts/main';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './App.css';
+import { Suspense, lazy } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Loading from './assets/LoadingLogo';
-import HomePage from './pages/HomePage';
-import DataPointsPage from './containers/DataPoints';
-import ResultsTopPage from './containers/ResultsTop';
-import HistoryPage from './containers/History';
-import MgeAdminForm from './containers/Admin';
 import { Toaster } from 'react-hot-toast';
-import AdminLayout from './layouts/admin';
-import AdminUsersPage from './containers/AdminUsers';
 import { ROUTES } from './routes';
 
-
+// Lazy load components
+const MainLayout = lazy(() => import('./layouts/main'));
+const AdminLayout = lazy(() => import('./layouts/admin'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const DataPointsPage = lazy(() => import('./containers/DataPoints'));
+const ResultsTopPage = lazy(() => import('./containers/ResultsTop'));
+const HistoryPage = lazy(() => import('./containers/History'));
+const MgeAdminForm = lazy(() => import('./containers/Admin'));
+const AdminUsersPage = lazy(() => import('./containers/AdminUsers'));
+const AdminHistoryPage = lazy(() => import('./containers/AdminHistory'));
 
 const router = createBrowserRouter([
-  {
-    // path: "*",
-    // element: <NotFoundPage/>
-  },
   {
     path: ROUTES.BID_MGE,
     element: <MainLayout Component={HomePage} />
@@ -45,20 +42,22 @@ const router = createBrowserRouter([
   {
     path: ROUTES.ADMIN_USERS,
     element: <AdminLayout Component={AdminUsersPage} />
+  },
+  {
+    path: ROUTES.ADMIN_HISTORY,
+    element: <AdminLayout Component={AdminHistoryPage} />
   }
-])
+]);
 
 function App() {
   return (
-    <>
-      <Suspense fallback={<Loading />}>
+    <Suspense>
+      <Loading>
         <Toaster />
-        <Loading>
-          <RouterProvider router={router} />
-        </Loading>
-      </Suspense>
-    </>
-  )
+        <RouterProvider router={router} />
+      </Loading>
+    </Suspense>
+  );
 }
 
-export default App
+export default App;
