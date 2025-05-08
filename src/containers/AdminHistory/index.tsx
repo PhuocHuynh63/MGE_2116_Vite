@@ -100,6 +100,21 @@ const AdminHistoryPage = () => {
     //     setSearch(e.target.value);
     // };
 
+    const handleExport = async () => {
+        try {
+            const response = await historyService.exportHistory();
+            const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'history.xlsx';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        catch (error) {
+            console.error('Failed to export data:', error);
+        }
+    };
 
     return (
         <div className="admin-users" style={{ margin: '0 25px' }}>
@@ -108,6 +123,10 @@ const AdminHistoryPage = () => {
             {/* <div className="search d-flex justify-content-end">
                 <input type="text" className="search-input1" placeholder="Search..." onChange={handleSearch} />
             </div> */}
+
+            <div className="search d-flex justify-content-start mb-2">
+                <button onClick={handleExport}>Xuất dữ liệu</button>
+            </div>
 
             {isLoading ? (
                 <div style={{ overflow: 'hidden' }}>
