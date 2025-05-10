@@ -96,7 +96,7 @@ const AdminUsersPage = () => {
             description: '',
             admin_key: '',
         });
-        setPointsAfterChange(user.rawPoints); // Khởi tạo giá trị điểm ban đầu
+        setPointsAfterChange(user.rawPoints);
         setIsModalVisible(true);
     };
 
@@ -104,7 +104,7 @@ const AdminUsersPage = () => {
         if (selectedUser) {
             const pointsRequest = Number(value);
             const newPoints = selectedUser.rawPoints + pointsRequest;
-            setPointsAfterChange(newPoints); // Cập nhật điểm sau khi thay đổi
+            setPointsAfterChange(newPoints);
         }
     };
 
@@ -123,7 +123,7 @@ const AdminUsersPage = () => {
                 fetchData(search, pagination.current, pagination.pageSize);
             }
         } catch (error: any) {
-            toast.error(error?.response?.data?.error || 'Có lỗi xảy ra!');
+            toast.error(error?.response?.data?.message || 'Có lỗi xảy ra!');
         }
     };
 
