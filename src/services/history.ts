@@ -5,7 +5,7 @@ const historyService = {
         return axiosClient.get(`history?current=${current}&pageSize=${pageSize}&sort=${sort}`);
     },
     exportHistory: () => {
-        return axiosClient.get(`history/export`);
+        return axiosClient.get(`history/export`, { responseType: 'blob' });
     }
 }
 
