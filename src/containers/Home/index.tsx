@@ -118,7 +118,7 @@ const Home = () => {
 
                 <div className="form-group">
                     <div className={`${errors.secretKey ? 'input-error' : 'input'}`}>
-                        <label htmlFor="secretKey">Secret Key <i className="contact">(Contact: GOL Phuoc): </i></label>
+                        <label htmlFor="secretKey">Secret Key <i className="contact">(Contact: カ LordAvernus カ): </i></label>
                         <input type="text" {...register('secretKey', { required: true })} placeholder="213d169b7i2o1pc7as3" />
                     </div>
                     {errors.secretKey && <span className={`${errors.secretKey ? 'text-error' : ''}`}>{errors.secretKey.message}</span>}

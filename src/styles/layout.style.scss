@@ -131,4 +131,10 @@
 }
 
 
-@media screen and (max-width: 426px) {}
+@media screen and (max-width: 426px) {
+    .header-home {
+        .none {
+            display: none;
+        }
+    }
+}

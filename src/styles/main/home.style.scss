@@ -52,7 +52,7 @@
                 border: 1px solid #e1e1e1;
                 border-radius: 7px;
                 width: 90%;
-                height: 110.8px;
+                height: auto;
                 transition: border 0.1s;
                 // gap: 10px;
 
@@ -128,7 +128,7 @@
             .input-error {
                 border-radius: 5px;
                 width: 90%;
-                height: 110.8px;
+                height: auto;
                 transition: border 0.1s;
                 border: 1px solid #F70500;
             }

@@ -35,7 +35,7 @@ const HeaderHome = () => {
                     </button>
                 </div>
 
-                <div className="right container">
+                <div className="right container none">
                     <div className="row justify-content-center">
                         {mge?.map((item: any, index: number) => (
                             <div key={index} className="command">
@@ -46,12 +46,12 @@ const HeaderHome = () => {
                 </div>
             </div>
 
-            <div className="bottom">
+            <div className="bottom none">
                 <p className='text'>Kingdom 2116</p>
                 <p className='text'>Minimum point bid stage: <span className='minimum-bid'>10,000,000</span></p>
             </div>
 
-            <div className="type">
+            <div className="type none">
                 <span className='typeMge'>{mge[0]?.typeMge}</span>
             </div>
         </div>
